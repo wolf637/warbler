@@ -11,6 +11,14 @@ export function setCurrentUser(user){
 }
 
 
+export function logout(){
+	return dispatch => {
+		localStorage.clear()
+		dispatch(setCurrentUser({}))
+	}
+}
+
+
 export function authUser(type, userData){
 	return dispatch => {
 		return new Promise((resolve, reject) => {
