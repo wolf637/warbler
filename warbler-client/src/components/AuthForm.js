@@ -16,7 +16,10 @@ export default class AuthForm extends Component {
 		e.preventDefault();
 		const authType = this.props.signup ? "signup" : "signin"
 		this.props.onAuth(authType, this.state).then(() => {
-			console.log("Logged in")
+			this.props.history.push("/")
+		})
+		.catch(() => {
+			return
 		})
 	}
 
@@ -30,7 +33,10 @@ export default class AuthForm extends Component {
 
 	render() {
 		const { email, username, password, profileImageUrl } = this.state;
-		const { heading, buttonText, signup } = this.props;
+		const { heading, buttonText, signup, errors, history, removeError } = this.props;
+		history.listen(() => {
+      removeError
+    });
 
 		return (
 				<div>
@@ -38,6 +44,7 @@ export default class AuthForm extends Component {
 						<div className="col-md-6">
 							<form onSubmit={this.handleSubmit}>
 								<h2>{heading}</h2>
+								{errors.message && <div className="alert alert-danger">{errors.message}</div>}
 								<label htmlFor="email">Email:</label>
 								<input 
 									className="form-control" 
