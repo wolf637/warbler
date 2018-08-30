@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import Homepage from "../components/Homepage"
 import AuthForm from "../components/AuthForm"
 import {authUser} from "../store/actions/auth"
-import { removeError } from "../store/actions/errors"
+import { removeError } from "../store/actions/errors";
+import withAuth from "../hocs/withAuth"
 
 const Main = props => {
 	const { authUser, errors, removeError, currentUser } = props
@@ -29,6 +30,8 @@ const Main = props => {
 								heading="Join Warbler Today!" {...props}/>
 							)
 					}} />
+
+					<Route path="/users/:id/messages/new" component={withAuth(MessageForm)} />
 				</Switch>
 			</div>
 		)
